@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>тест вью</title>
+</head>
+<style>
+    *{
+        margin:  auto;
+    }
+
+    body {
+        margin-top: 20px;
+    }
+
+    td{
+        border: 1px solid black;
+        width: 150px;
+        text-align: center;
+        font-style: italic;
+    }
+    
+    input {
+        outline: none;
+        border: none;
+        text-align: center;
+        font-style: italic;
+    }
+
+    button{
+        height: 30px;
+        width: 100%;
+        border: none;
+    }
+
+    .grey{
+        background-color: rgb(223, 223, 223);
+    }
+
+    #greenBtn{
+        background-color: #98FB98;
+    }
+
+    #greenBtn:hover, #greenBtn:active{
+        background-color: #90EE90;
+        outline: none;
+    }
+
+    #redBtn{
+        background-color: #FA8072;
+    }
+
+    #redBtn:hover, #redBtn:active{
+        background-color: #F08080;
+        outline: none;
+    }
+</style>
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <th>Название</th>
+                <th>Стоимость</th>
+                <th>Количество</th>
+                <th>Сумма</th>
+                <th>Действие</th>
+            </tr>
+            <tr>
+                <td> <input type="text" v-model="product" placeholder="Название" title = "Введите название"></td>
+                <td><input type="number" v-model="price" placeholder="Стоимость" title = "Введите стоимость"></td>
+                <td><input type="number" v-model="quantity" placeholder="Количество" title = "Введите количество"></td>
+                <td class = 'grey'>{{ quantity * price }}</td>
+                <td><button v-on:click="add" id="greenBtn">Добавить</button></td>
+            </tr>
+            <tr v-for="(product,index) in products">
+                <td><input type="text" v-model="product.name" title = "Изменить наименование"></td>
+                <td><input type="number" v-model="product.price" title = "Изменить стоимость"></td>
+                <td><input type="number" v-model="product.quantity" title = "Изменить количество"></td>
+                <td class = 'grey'>{{ product.price * product.quantity }}</td>
+                <td><button v-on:click="products.splice(index, 1)" id="redBtn">Удалить</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [
+                    {name: 'product3', price: 100, quantity: 4},
+                    {name: 'product2', price: 200, quantity: 5},
+                    {name: 'product1', price: 300, quantity: 6},
+                ], 
+                product: '',
+                price: '',
+                quantity: '',
+            },
+            methods: {
+                add: function(){
+                    if(this.product == '' || 
+                       this.price == '' ||
+                       this.quantity == ''){
+                           alert('Введите недостающие значения')
+                       } else {
+                            let newObj = {
+                                name: this.product, 
+                                price: this.price,
+                                quantity: this.quantity,
+                            }
+                            this.products.unshift(newObj);
+                            this.product = '';
+                            this.price = '';
+                            this.quantity = '';
+                       }
+                },
+            }
+        });
+    </script>
+</body>
+</html>
