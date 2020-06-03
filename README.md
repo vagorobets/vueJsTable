@@ -1,7 +1,8 @@
 # Интерактивная таблица с использованием Vue.js
 
-
 https://github.com/vagorobets
+
+[Посмотреть](https://vagorobets.github.io/vueJsTable/)
 
 Основные требования к разработке:
 
